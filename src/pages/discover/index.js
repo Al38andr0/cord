@@ -1,20 +1,16 @@
 import React, { useState, useEffect } from "react";
 import * as fetcher from "../../fetcher";
-import SearchFilters from "../../components/searchfilter";
+import { SearchFilters } from "../../components/searchfilter";
 import { MovieResults } from "../../components/movieresults";
 
 export const Discover = () => {
-  const [data, setData] = useState({
-    loading: false,
-    results: [],
-    totalCount: 0,
-    page: 1,
-    totalPages: 1
-  })
-  const [input, setInputs] = useState({
-    keyword: '',
-    year: 0
-  })
+  const [loading, setLoading] = useState(false)
+  const [results, setResults] = useState([])
+  const [totalCount, setTotalCount] = useState(0)
+  const [page, setPage] = useState(1)
+  const [totalPages, setTotalPages] = useState(1)
+  const [keyword, setKeyword] = useState()
+  const [year, setYear] = useState()
   const options = {
     genre: [
       {
@@ -95,53 +91,50 @@ export const Discover = () => {
       },
     ],
     rating: [
-      { id: 7.5, name: 7.5 },
-      { id: 8, name: 8 },
-      { id: 8.5, name: 8.5 },
-      { id: 9, name: 9 },
-      { id: 9.5, name: 9.5 },
-      { id: 10, name: 10 }
+      { id: 7.5, label: 7.5 },
+      { id: 8, label: 8 },
+      { id: 8.5, label: 8.5 },
+      { id: 9, label: 9 },
+      { id: 9.5, label: 9.5 },
+      { id: 10, label: 10 }
     ],
     language: [
-      { id: 'GR', name: 'Greek' },
-      { id: 'EN', name: 'English' },
-      { id: 'RU', name: 'Russian' },
-      { id: 'PO', name: 'Polish' }
+      { id: 'GR', label: 'Greek' },
+      { id: 'EN', label: 'English' },
+      { id: 'RU', label: 'Russian' },
+      { id: 'PO', label: 'Polish' }
     ]
   }
 
-
   useEffect(() => {
-    data.loading = false
-    fetcher.getMoviesByNameAndYear(null, null, 'EN').then(response => {
-      setData({
-        totalCount: response.total_results,
-        results: response.results,
-        loading: false,
-        page: response.page,
-        totalPages: response.total_pages
-      })
+    setLoading(true)
+    fetcher.getMoviesByKeywordAndYear(keyword, year, 'en-US').then(response => {
+      setLoading(false)
+      setResults(response.results)
+      setTotalCount(response.total_results)
+      setPage(response.page)
+      setTotalPages(response.total_pages)
     })
-  }, [])
+  }, [keyword, year])
 
   return (
     <div id="discover-container">
       <div id="mobile-header">Discover</div>
       <MovieResults
-        totalCount={data.totalCount}
-        totalPages={data.totalPages}
-        page={data.page}
-        results={data.results}
+        totalCount={totalCount}
+        totalPages={totalPages}
+        page={page}
+        results={results}
         genres={options.genre}
-        loading={data.loading}
+        loading={loading}
       />
-      <div id="movie-filters">
-        <SearchFilters
-          genres={options.genre}
-          ratings={options.rating}
-          languages={options.language}
-        />
-      </div>
+      <SearchFilters
+        genres={options.genre}
+        ratings={options.rating}
+        languages={options.language}
+        setKeyword={setKeyword}
+        setYear={setYear}
+      />
     </div>
   )
 }

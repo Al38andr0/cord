@@ -1,16 +1,21 @@
 import React from "react";
-import styled from 'styled-components';
+import {CheckBox} from "../checkbox";
 
-import Checkbox from "../checkbox";
+export const ExpandableFilter = props => {
+  const { data } = props;
 
-export default class ExpandableFilter extends React.Component {
-  constructor (props) {
-    super(props);
-
-    this.state = {
-      filtersShown: false
-    };
-  }
-
-  // You need to create your own checkbox component with a custom checkmark
+  return (
+    <details>
+      <summary>
+        {data.label}
+      </summary>
+      {data.collection.map(
+        i =>
+          <CheckBox
+            key={i.id}
+            data={i}
+          />
+      )}
+    </details>
+  )
 }

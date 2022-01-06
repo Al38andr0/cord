@@ -1,31 +1,23 @@
 import axios from 'axios';
 
-export const getMoviesByNameAndYear = (name, year, language) => {
-  let url = `http://api.themoviedb.org/3/discover/movie?api_key=385fe68560b2a9b4ef3f8ff794ec9d66&language=${language}&sort_by=popularity.desc`
-  if (name) {
-    url += `&query=${name}`
-  }
-  if (year) {
+export const getMoviesByKeywordAndYear = (keyword, year, language) => {
+  const validYear = year && !isNaN(year) && year >= 1900
+  const baseUrl = 'http://api.themoviedb.org/3/'
+  let action = (!keyword) ? 'discover' : 'search'
+  const baseQuery = `/movie?api_key=385fe68560b2a9b4ef3f8ff794ec9d66&language=${language}`
+  let sort = (!keyword) ? '&sort_by=popularity.desc' : ''
+  let url = `${baseUrl}${action}${baseQuery}${sort}`
+
+  if (!keyword && validYear) {
     url += `&year=${year}`
   }
+  if (keyword) {
+    url += !validYear ? `&query=${keyword}` : `&query=${keyword}&year=${year}`
+  }
+
   return axios({
     method: 'get',
     url
   })
     .then(response => response.data);
-}
-
-function debounce(func, wait, immediate) {
-  let timeout;
-  return function() {
-    const context = this, args = arguments;
-    const later = function() {
-      timeout = null;
-      if (!immediate) func.apply(context, args);
-    };
-    const callNow = immediate && !timeout;
-    clearTimeout(timeout);
-    timeout = setTimeout(later, wait);
-    if (callNow) func.apply(context, args);
-  }
 }

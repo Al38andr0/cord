@@ -17,6 +17,79 @@ input, textarea {
   font-family: 'Lato', sans-serif;
   background-color: transparent; }
 
+.input-field {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  border-bottom: 2px solid #c4ca18; }
+
+.input-field:first-of-type {
+  margin-bottom: 1rem; }
+
+.input-field > img {
+  width: 25px;
+  object-fit: contain; }
+
+.input-field > input {
+  all: unset;
+  flex: 1;
+  width: 100%;
+  color: #c4ca18;
+  font-size: 1.1rem;
+  padding: 0.75rem; }
+
+.checkbox-field {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  padding: 0.25rem 0; }
+
+.checkbox-field > input {
+  width: 1rem;
+  height: 1rem;
+  margin-right: 1rem; }
+
+.checkbox-field > span {
+  color: #999; }
+
+::-webkit-input-placeholder {
+  color: rgba(196, 202, 24, 0.5); }
+
+::-moz-placeholder {
+  color: rgba(196, 202, 24, 0.5); }
+
+:-ms-input-placeholder {
+  color: rgba(196, 202, 24, 0.5); }
+
+:-moz-placeholder {
+  color: rgba(196, 202, 24, 0.5); }
+
+details > summary {
+  user-select: none;
+  cursor: pointer;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center; }
+
+details > summary:before {
+  content: "+";
+  font-size: 1.75rem;
+  position: relative;
+  top: -.1rem;
+  margin-right: 1rem; }
+
+details[open] > summary:before {
+  content: "_";
+  position: relative;
+  top: -1rem; }
+
+details > label {
+  position: relative;
+  left: -5px; }
+
+details > label:last-of-type {
+  margin-bottom: 1rem; }
+
 #side-nav-bar-container {
   position: fixed;
   z-index: 9;
@@ -27,7 +100,7 @@ input, textarea {
   transition: 150ms transform ease-out;
   transform: translateX(-100%); }
 
-@media (min-width: 901px) {
+@media (min-width: 1281px) {
   #side-nav-bar-container.visible {
     transform: translateX(0%); } }
 
@@ -80,27 +153,46 @@ input, textarea {
   #mobile-header {
     display: flex; } }
 
+#main-container {
+  padding-left: 0; }
+
+@media (min-width: 1281px) {
+  #main-container {
+    padding-left: 280px; } }
+
 #discover-container {
-  padding: 45px; }
+  padding: 45px 0 45px 45px; }
+
+#discover-container > #movie-result-wrapper {
+  height: 93vh;
+  overflow: hidden; }
 
 #discover-container > #movie-result-wrapper > #movie-counter {
-  margin: 0 0 1rem; }
+  margin: 0 0 1rem;
+  font-size: 0.9rem; }
+
+#discover-container > #movie-result-wrapper > #movies-wrapper {
+  height: 100%;
+  overflow: auto; }
 
 @media (min-width: 901px) {
   #discover-container > #movie-result-wrapper > #movies-wrapper {
-    padding-right: 360px; } }
+    padding-right: 388px; } }
 
 #discover-container > #movie-result-wrapper > #movies-wrapper > .movie-item-wrapper {
   background-color: white;
   display: flex;
   padding: 20px;
   margin-bottom: 1rem;
-  margin-right: 20px; }
+  margin-right: 15px; }
 
 #discover-container > #movie-result-wrapper > #movies-wrapper > .movie-item-wrapper > img {
   width: 10rem;
   object-fit: contain;
   margin-right: 20px; }
+
+#discover-container > #movie-result-wrapper > #movies-wrapper > .movie-item-wrapper > .movie-item-info {
+  flex: 1; }
 
 #discover-container > #movie-result-wrapper > #movies-wrapper > .movie-item-wrapper > .movie-item-info .highlighted {
   font-size: 0.85rem;
@@ -123,7 +215,10 @@ input, textarea {
   padding: 0.5rem;
   border-radius: 0.2rem;
   font-size: 0.85rem;
-  font-weight: 700; }
+  font-weight: 700;
+  min-width: 20px;
+  display: flex;
+  justify-content: center; }
 
 #discover-container > #movie-result-wrapper > #movies-wrapper > .movie-item-wrapper > .movie-item-info > .movie-item-genres {
   margin: 0; }
@@ -134,9 +229,22 @@ input, textarea {
 #discover-container > #movie-result-wrapper > #movies-wrapper > .movie-item-wrapper > .movie-item-info > .movie-item-genres > span:last-of-type:after {
   content: none; }
 
-#discover-container > #movie-filters {
+#discover-container > #filter-wrapper {
   display: block;
   position: fixed;
   top: 82px;
   right: 45px;
   width: 360px; }
+
+#discover-container > #filter-wrapper > .filter-container {
+  background-color: white;
+  padding: 20px; }
+
+#discover-container > #filter-wrapper > #form-container {
+  margin-bottom: 15px; }
+
+#discover-container > #filter-wrapper > #form-container > .input-field:first-of-type {
+  margin-bottom: 1rem; }
+
+#discover-container > #filter-wrapper > #checkbox-container > p {
+  font-weight: 900; }

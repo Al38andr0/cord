@@ -15,21 +15,16 @@ export default class App extends React.Component {
       <Router>
         <PageContainer>
           <SideNavBar/>
-          <ContentWrapper>
+          <div id="main-container">
             <Routes>
               <Route path="/discover" element={<Discover/>}/>
             </Routes>
-          </ContentWrapper>
+          </div>
         </PageContainer>
       </Router>
     );
   }
 }
-
-
-const ContentWrapper = styled.main`
-  padding-left: 280px;
-`
 
 const PageContainer = styled.main`
   overflow-x: hidden;

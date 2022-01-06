@@ -14,7 +14,7 @@ export const MovieResults = props => {
         {
           totalCount > 0 &&
           <p id="movie-counter">
-            {totalCount} movies | Page {page} of {totalPages}
+            {totalCount.toLocaleString()} movies | Page {page.toLocaleString()} of {totalPages.toLocaleString()}
             {/*I would insert the pagination in here*/}
           </p>
         }

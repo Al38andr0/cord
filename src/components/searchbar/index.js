@@ -1,10 +1,17 @@
 import React from "react";
-import styled from 'styled-components';
 
-import * as colors from "../../colors";
-import SearchIcon from "../../images/search-icon-yellow.png";
-import CalendarIcon from "../../images/year-icon.png";
+export const SearchBar = props => {
+  const { data } = props;
 
-export default class SearchBar extends React.Component {
-
+  return (
+    <div className="input-field">
+      <img src={data.imageSrc} alt={data.imageAlt}/>
+      <input
+        type={data.type}
+        id={data.unique}
+        placeholder={data.placeholder}
+        onChange={e => data.callback(e.target.value)}
+      />
+    </div>
+  )
 }

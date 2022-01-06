@@ -7,7 +7,10 @@ export const MovieItem = (props) => {
 
   return (
     <div className="movie-item-wrapper">
-      <img src={`https://www.themoviedb.org/t/p/w220_and_h330_face/${movie.backdrop_path}`} alt={movie.title}/>
+      <img
+        src={`https://www.themoviedb.org/t/p/w220_and_h330_face/${movie.poster_path}`}
+        alt={movie.title}
+      />
       <div className="movie-item-info">
         <div className="movie-item-header">
           <h2>{movie.title}</h2>
@@ -17,7 +20,7 @@ export const MovieItem = (props) => {
           {movie.genres.map(g => <span key={g.id} className="highlighted">{g.label}</span>)}
         </p>
         <p>{movie.overview}</p>
-        <p className="highlighted">{movie.release_date}</p>
+        <p className="highlighted">Release date: {new Date(movie.release_date).toLocaleDateString()}</p>
       </div>
     </div>
   )
