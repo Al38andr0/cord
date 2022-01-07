@@ -1,0 +1,28 @@
+.hamburger-container {
+  display: inline-block;
+  cursor: pointer;
+  & > div {
+    width: 30px;
+    height: 2px;
+    background-color: white;
+    margin: 0 0 8px;
+    transition: 0.4s;
+    pointer-events: none;
+    &:last-of-type {
+      margin: 0;
+    }
+  }
+  &.change {
+    & > div:first-of-type {
+      transform: rotate(-45deg) translate(-9px, 6px);
+    }
+    & > div:nth-of-type(2) {
+      opacity: 0;
+    }
+    & > div:last-of-type {
+      transform: rotate(45deg) translate(-7px, -6px);
+    }
+  }
+}
+
+

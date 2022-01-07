@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import * as fetcher from "../../fetcher";
 import { SearchFilters } from "../../components/searchfilter";
 import { MovieResults } from "../../components/movieresults";
+import { MobileSearchFilter } from "../../components/mobilesearchfilter";
 
 export const Discover = () => {
   const [loading, setLoading] = useState(false)
@@ -119,14 +120,8 @@ export const Discover = () => {
 
   return (
     <div id="discover-container">
-      <div id="mobile-header">Discover</div>
-      <MovieResults
-        totalCount={totalCount}
-        totalPages={totalPages}
-        page={page}
-        results={results}
-        genres={options.genre}
-        loading={loading}
+      <MobileSearchFilter
+        setKeyword={setKeyword}
       />
       <SearchFilters
         genres={options.genre}
@@ -134,6 +129,14 @@ export const Discover = () => {
         languages={options.language}
         setKeyword={setKeyword}
         setYear={setYear}
+      />
+      <MovieResults
+        totalCount={totalCount}
+        totalPages={totalPages}
+        page={page}
+        results={results}
+        genres={options.genre}
+        loading={loading}
       />
     </div>
   )

@@ -8,6 +8,10 @@ body {
   color: rgb(64, 78, 95);
   margin: 0;
   padding: 0;
+  overflow: hidden;
+  @media (max-width: 1100px) {
+    overflow: unset;
+  }
 }
 
 * {
@@ -47,7 +51,7 @@ input, textarea {
 
 .checkbox-field {
   display: flex;
-  justify-content: start;
+  justify-content: flex-start;
   align-items: center;
   padding: 0.25rem 0;
   & > input {
@@ -111,10 +115,18 @@ details {
   left: 0;
   transition: 150ms transform ease-out;
   transform: translateX(-100%);
+  @media (max-width: 1280px) {
+    height: calc(100% - 79px);
+    top: 79px;
+    overflow: auto;
+  }
   &.visible {
     @media (min-width: 1281px) {
       transform: translateX(0%);
     }
+  }
+  &.showed {
+    transform: translateX(0%);
   }
   & > .menu-nav-link  {
     display: flex;
@@ -158,12 +170,26 @@ details {
     }
   }
 }
-
 #mobile-header {
   display: none;
-  width: 100%;
-  @media (max-width: 900px) {
+  background-color: $sideNavBar;
+  padding: 20px 45px;
+  height: 39px;
+  position: sticky;
+  top: 0;
+  @media (max-width: 600px) {
+    padding: 20px 15px;
+  }
+  & > h1 {
+    margin: 0 20px;
+    font-size: 1.7rem;
+    color: white;
+    text-transform: capitalize;
+    font-weight: 500;
+  }
+  @media (max-width: 1280px) {
     display: flex;
+    align-items: center;
   }
 }
 #main-container {
@@ -174,9 +200,35 @@ details {
 }
 #discover-container {
   padding: 45px 0 45px 45px;
+  @media (max-width: 1100px) {
+    padding: 15px 0 45px 45px;
+  }
+  @media (max-width: 600px) {
+    padding: 15px 0 15px 15px;
+  }
+  & > .loader-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    @media (min-width: 1101px) {
+      padding-right: 388px;
+    }
+    & > .lds-roller {
+      & > div:after {
+        background-color: $sideNavBar;
+      }
+    }
+    & > p {
+      text-transform: uppercase;
+      font-size: 0.75rem;
+    }
+  }
   & > #movie-result-wrapper {
     height: 93vh;
     overflow: hidden;
+    @media (max-width: 1100px) {
+      height: auto;
+    }
     & > #movie-counter {
       margin: 0 0 1rem;
       font-size: 0.9rem;
@@ -184,83 +236,84 @@ details {
     & > #movies-wrapper {
       height: 100%;
       overflow: auto;
-      @media (min-width: 901px) {
+      @media (min-width: 1101px) {
         padding-right: 388px;
-      }
-      & > .movie-item-wrapper {
-        background-color: white;
-        display: flex;
-        padding: 20px;
-        margin-bottom: 1rem;
-        margin-right: 15px;
-        & > img {
-          width: 10rem;
-          object-fit: contain;
-          margin-right: 20px;
-        }
-        & > .movie-item-info {
-          flex: 1;
-          & .highlighted {
-            font-size: 0.85rem;
-            color: $primaryColor;
-            font-weight: 700;
-          }
-          & > .movie-item-header {
-            display: flex;
-            align-items: center;
-            & > h2 {
-              font-size: 1.5rem;
-              font-weight: 900;
-              margin: 0;
-            }
-            & > span {
-              background-color: $primaryColor;
-              color: white;
-              margin-left: auto;
-              padding: 0.5rem;
-              border-radius: 0.2rem;
-              font-size: 0.85rem;
-              font-weight: 700;
-              min-width: 20px;
-              display: flex;
-              justify-content: center;            }
-          }
-          & > .movie-item-genres {
-            margin: 0;
-            & > span {
-              &:after {
-                content: ' | ';
-              }
-              &:last-of-type:after {
-                content: none;
-              }
-            }
-          }
-        }
       }
     }
   }
   & > #filter-wrapper {
     display: block;
     position: fixed;
-    top: 82px;
-    right: 45px;
     width: 360px;
+    top: 80px;
+    right: 45px;
+    transition: 150ms transform ease-out;
+    @media (max-width: 1280px) {
+      top: 160px;
+    }
+    @media (max-width: 1100px) {
+      display: none;
+    }
+    &.showed {
+      @media (max-width: 1100px) {
+        display: block;
+        position: relative;
+        width: calc(100% - 45px);
+        margin-bottom: 1rem;
+        top: 0;
+        right: 0;
+      }
+      @media (max-width: 600px) {
+        width: calc(100% - 15px);
+      }
+    }
     & > .filter-container {
       background-color: white;
       padding: 20px;
+      &:first-of-type {
+        @media (max-width: 1100px) {
+          background-color: unset;
+          padding: 0;
+        }
+      }
     }
     & > #form-container {
       margin-bottom: 15px;
       & > .input-field {
         &:first-of-type {
           margin-bottom: 1rem;
+          @media (max-width: 1100px) {
+            display: none;
+          }
         }
       }
     }
     & > #checkbox-container {
       & > p {
         font-weight: 900;
+      }
+    }
+  }
+  & > #mobile-filter-wrapper {
+    display: none;
+    padding-right: 45px;
+    @media (max-width: 1100px) {
+      display: flex;
+    }
+    @media (max-width: 600px) {
+      padding-right: 15px;
+    }
+    & > .input-field {
+      flex: 1;
+      margin-right: 20px;
+    }
+    & > img {
+      width: 35px;
+      object-fit: contain;
+      cursor: pointer;
+      transition: 150ms all ease-out;
+      &:hover {
+        transform: scale(1.1);
       }
     }
   }

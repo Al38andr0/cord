@@ -1,37 +1,47 @@
-# cord Coding Challenge (Front-end)
+# Cord Coding Challenge (Front-end)
 
-### Introduction 
-Welcome! This coding challenge is designed to explore your React & SCSS frontend skills. You will have to create a simple SPA based off the provided mockup and make a few API calls to a public web API.
+### Requirements/Development
+**Design**: 
+1. In first instance I'd like to highlight that the mockups does not match the wireframe in few aspects. I based my app on the mockups, not on the wireframe.
+2. In the side nav the first item look like as a dropdown menu (based on the chevron down), but in the original code was reported as a normal link. I kept it as link pointing at the homepage.
+3. In the mobile version I created an interpretation of what you requested, since the mockups do not report a complete design.
+4. Mobile: I preferred adopt a solid background for the header and make it "sticky".
+5. Mobile: the mockup doesn't show how the movie item should behave for a small device. I created it base on my experience.
+6. Mobile: the mockup doesn't show how the filters behave in a small device. I created it base on my experience.
+7. Desktop: since the API returns the data split in pages, I opted to keep the results always visible adding the page returned from the API. If this one wasn't just a test I would have also added a pagination in this element.
+Saying "always visible" I mean that the results are in an independent scrollable element placed underneath it. 
+In this way, in my opinion, the user journey would have been improved if the pagination were implemented.
+8. I've added a loader during the search.
 
-### The challenge
-You have to complete the test and write any necessary code so that the discover page looks like this [mockup] designs. All the images/icons you need are already imported and you can find them under the images folder. 
+**Functionality**
+1. The search works using the API as good as possible.
+2. The requirements ask to load the results "instantly", but then highlight the rate limiting issue. 
+In order to reduce the number of requests I applied a debounce functionality to the input with a delay of 250ms. 
+This is in contrast with the "instantly" mentioned before, but I believe is a good compromise to optimize the service.
+Also, in order to limit the requests to the API I've implemented a service worker.
 
-The discover page should enable the user to search for movies as keywords are typed into the search bar. Functionality for filtering does not need to be implemented, however the filter categories should still be expandable/collapsable upon clicking. On mobile devices, the navigation bar should slide in from left to right when the user clicks on the hamburger icon, and back when the user clicks on a close icon or outside the SideBar. In addition, you have to add all the responsive stylesheets for the app to run smoothly on mobile devices.
 
-Movie data can be queried via: 
-- [theMovieDB]
+**Code quality**:
+1. I believe wrote the code in a clean and intuitive way. 
+I moved from the classes to the functions in order to use the Hooks.
+Also, I removed the native use of "styled-components" in favour of a standard HTML with ids and classes.
+I choose this way because I believe it's easier to understand, control the style (all the styles are in the scss files) and test (the elements have a proper tag to refer to during the tests).
+In the "movieitem" folder you can see and example of structure I would use for a real project, where style and test are within the component itself.
 
-Packages & Technologies used in the repo:
-- `axios`
-- `node-sass`
-- `react-router-dom`
-- `styled-components`
+**Performance**:
+- The app loads very quickly. Lighthouse reported a score performance of 96. I didn't use any external library for the style or JS except the ones injected by you.
 
-### Submission guide
-Please fork this repo and drop your contact person a note once you are done
+**Automated Tests**
+- In the "movieitem" folder you can find an example of unit test for the UI. In normal condition I would test all the components and the JS files, but, since it's just a test I gave you just an example.
 
-### How we review
-- **Design**: Were you able to translate the mockup into a web application that works well on various browsers and devices? Does the output match the mockup? Are all the required interactions implemented? This is the most important aspect. Weight: 50%
-- **Functionality**: Does the search function work? Do the results load instantly as the user types? If the API backend has rate limiting enforced, how do you implement the aforementioned while also taking rate limiting into account? Weight: 25%
-- **Code quality**: Is the code easy to understand and maintain? Is the coding style consistent with the language's best practices? Do you demonstrate a good grasp of JavaScript, especially ES6? Weight: 15%
-- **Performance**: Does the UI render quickly? Are the choice of libraries etc appropriate for the web page? Weight: 10%
+**Documentation** 
+- I hope this documentation is understandable enough. The project itself it's pretty simple and, for a real project, it would have not required too much explanation, in my opinion. 
+ 
+**Reporting** 
+- I implemented an example of this functionality into "movieresults\index.js".   
+ 
+**Production-readiness** 
+- The build create the bundle without errors. I didn't explore the code-splitting functionality just for the lack of personal time.
 
-### Bonus points
-- **Automated Tests** - Are there any automated frontend tests?
-- **Documentation** - Is the README well written? Are the commit messages clear?
-- **Reporting** - React Profiler report with demonstrated knowledge of reading / reporting performance data 
-- **Production-readiness** - Is there proper error handling? Is the code ready to put into production? Code-Splitting?
-- **Future-readiness** - React Hooks? Web workers? PWA? Client-side caching?
-
-[mockup]: <https://cord-coding-challenges.s3-eu-west-1.amazonaws.com/frontend-test-mockups.zip>
-[theMovieDB]: <https://www.themoviedb.org/documentation/api>
+**Future-readiness**
+- I used hooks and applied the web worker. The PWA side and client-caching should be covered in **production**.

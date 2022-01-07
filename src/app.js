@@ -4,28 +4,26 @@ import {
   Route,
   Routes
 } from "react-router-dom";
-import styled from 'styled-components';
 import { SideNavBar } from "./components/sidenavbar";
 import { Discover } from "./pages/discover";
-import './css/app.css'; 
+import {MobileHeader} from "./components/mobileheader";
+import './css/app.css';
 
-export default class App extends React.Component {
-  render () {
-    return (
-      <Router>
-        <PageContainer>
-          <SideNavBar/>
-          <div id="main-container">
-            <Routes>
-              <Route path="/discover" element={<Discover/>}/>
-            </Routes>
-          </div>
-        </PageContainer>
-      </Router>
-    );
-  }
+export const App = () => {
+  return (
+    <Router>
+      <main>
+        <SideNavBar/>
+        <MobileHeader/>
+        <div id="main-container">
+          <Routes>
+            <Route
+              path="/discover"
+              element={<Discover/>}
+            />
+          </Routes>
+        </div>
+      </main>
+    </Router>
+  )
 }
-
-const PageContainer = styled.main`
-  overflow-x: hidden;
-`
